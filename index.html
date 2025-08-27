@@ -4,74 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba de Video - Curso C</title>
+    <style>
+        body {
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .video-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px auto;
+            width: 680px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .video-title {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        video, iframe {
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<style>
-    body {
-    background-color: #000000;
-    font-family: Arial, sans-serif;
-}
-
-</style>
 <body>
     <h1>Introducción a C</h1>
-    <video src="1. introducion a c/1.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/2.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/3.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/4.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/5.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/7.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/8.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/9.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/10.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/11.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/12.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/13.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/14.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/15.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <br>
-    <video src="1. introducion a c/16.mp4" controls width="640">
-        Tu navegador no soporta el elemento de video.
-    </video>
+
+    <div class="video-card">
+        <div class="video-title">Video 1: Introducción</div>
+        <video src="1. introducion a c/1.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 2</div>
+        <video src="1. introducion a c/2.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 3 (Google Drive)</div>
+        <iframe
+            src="https://drive.google.com/file/d/1mFbUufphwpRTJqYGkZ8bqntq1i8CWpf2/preview"
+            width="640"
+            height="360">
+        </iframe>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 4</div>
+        <video src="1. introducion a c/4.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 5</div>
+        <video src="1. introducion a c/5.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 7</div>
+        <video src="1. introducion a c/7.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 8 (Google Drive)</div>
+        <iframe
+            src="https://drive.google.com/file/d/1AqSdgneJBEzn0dGEuS47NUVZfEenjf_b/preview"
+            width="640"
+            height="360">
+        </iframe>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 9</div>
+        <video src="1. introducion a c/9.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 10</div>
+        <video src="1. introducion a c/10.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 11</div>
+        <video src="1. introducion a c/11.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 12</div>
+        <video src="1. introducion a c/12.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 13</div>
+        <video src="1. introducion a c/13.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 14</div>
+        <video src="1. introducion a c/14.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 15</div>
+        <video src="1. introducion a c/15.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <div class="video-card">
+        <div class="video-title">Video 16</div>
+        <video src="1. introducion a c/16.mp4" controls width="640" height="360">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
 </body>
 </html>
