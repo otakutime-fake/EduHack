@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adobe Illustrator 2011 - EduHack</title>
+  <meta name="description" content="Domina Adobe Illustrator desde cero y conviértete en un experto del diseño vectorial. Curso completo con proyectos prácticos.">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/animations.js"></script>
+  <script src="../../js/modals.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#16a34a',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="page-layout sidebar-layout bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100" x-data="courseData()">
+
+  <!-- Navegación consistente EduHack -->
+  <header class="eduhack-navbar">
+    <div class="flex items-center">
+      <a href="../../index.html" class="eduhack-logo">EduHack</a>
+      <span class="eduhack-tagline">Hackea tu futuro</span>
+    </div>
+    <nav class="nav">
+      <a href="../../index.html" class="nav-link">Inicio</a>
+      <a href="../../pages/cursos.html" class="nav-link active">Cursos</a>
+      <a href="../../pages/rutas.html" class="nav-link">Rutas</a>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="eduhack-sidebar">
+    <a href="../../index.html" class="sidebar-link">
+      <span>🏠</span> Inicio
+    </a>
+    <a href="../../pages/cursos.html" class="sidebar-link active">
+      <span>📚</span> Cursos
+    </a>
+    <a href="../../pages/rutas.html" class="sidebar-link">
+      <span>🛤️</span> Rutas
+    </a>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="main-content pb-16">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 animate-on-scroll">
+      <a href="../../index.html" class="hover:text-primary-600 transition-colors">Inicio</a>
+      <span>/</span>
+      <a href="../../pages/cursos.html" class="hover:text-primary-600 transition-colors">Cursos</a>
+      <span>/</span>
+      <span class="text-gray-900 dark:text-gray-100">Adobe Illustrator 2011</span>
+    </nav>
+
+    <!-- Hero del curso -->
+    <div class="relative bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 rounded-3xl p-8 mb-8 text-white overflow-hidden animate-on-scroll">
+      <div class="relative z-10">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8">
+          <div class="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/30">
+            <img src="../../icons/illustrator 2011.svg" alt="Illustrator" class="w-12 h-12" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <span class="text-3xl font-bold hidden">Ai</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">🎨 Diseño</span>
+              <span class="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">⭐ Destacado</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Adobe Illustrator 2011</h1>
+            <p class="text-xl mb-6 opacity-90 max-w-2xl">Domina el arte del diseño vectorial desde cero. Aprende técnicas profesionales, efectos avanzados y crea ilustraciones impactantes.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div class="text-2xl font-bold">12</div>
+                <div class="text-sm opacity-80">Videos</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div class="text-2xl font-bold">2.5h</div>
+                <div class="text-sm opacity-80">Duración</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div class="text-2xl font-bold">4.8</div>
+                <div class="text-sm opacity-80">Rating</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div class="text-2xl font-bold">856</div>
+                <div class="text-sm opacity-80">Estudiantes</div>
+              </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button @click="startCourse()" class="btn bg-white text-red-600 hover:bg-gray-100 btn-lg font-bold shadow-lg">
+                🚀 Comenzar curso gratuito
+              </button>
+              <button @click="addToWishlist()" class="btn bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 btn-lg">
+                ❤️ Agregar a favoritos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Elementos decorativos -->
+      <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-48 translate-x-48"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-32 -translate-x-32"></div>
+      <div class="absolute top-1/2 right-1/4 w-32 h-32 bg-white/10 rounded-full"></div>
+    </div>
+
+    <!-- Información del curso -->
+    <div class="grid lg:grid-cols-3 gap-8 mb-8">
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Descripción del curso -->
+        <div class="card animate-on-scroll">
+          <div class="card-body">
+            <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+              <span class="text-4xl">📋</span>
+              <span>Descripción del curso</span>
+            </h2>
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-6">
+                Domina Adobe Illustrator desde cero y conviértete en un experto del diseño vectorial. Este curso completo te enseñará a manejar herramientas esenciales, crear formas complejas, aplicar colores profesionales y dar volumen con sombras y efectos avanzados.
+              </p>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                Descubre técnicas profesionales para simular transparencias, reflejos, degradados y crear ilustraciones 3D impactantes. Ideal para principiantes y diseñadores que buscan perfeccionar sus habilidades, este curso te lleva desde las bases hasta proyectos avanzados del mundo real.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido del curso -->
+        <div class="card animate-on-scroll">
+          <div class="card-body">
+            <h3 class="text-3xl font-bold mb-8 flex items-center gap-3">
+              <span class="text-4xl">🎬</span>
+              <span>Contenido del curso</span>
+              <span class="text-sm bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full ml-auto">12 videos • 2.5 horas</span>
+            </h3>
+            <div class="space-y-3">
+              <!-- Video 1 -->
+              <div class="group flex items-center p-5 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl hover:from-green-100 hover:to-blue-100 dark:hover:from-green-800/30 dark:hover:to-blue-800/30 transition-all duration-300 cursor-pointer border border-green-200 dark:border-green-700" @click="goToLesson(1)">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-xl flex items-center justify-center font-bold mr-5 group-hover:scale-110 transition-transform">
+                  1
+                </div>
+                <div class="flex-1">
+                  <h4 class="font-bold text-lg text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">Presentación y objetivos del curso</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Introducción • 1:14 min • Gratis</p>
+                </div>
+                <div class="text-green-600 dark:text-green-400 text-2xl group-hover:scale-125 transition-transform">
+                  ▶️
+                </div>
+              </div>
+              
+              <!-- Videos 2-12 -->
+              <template x-for="video in videos.slice(1)" :key="video.id">
+                <div class="group flex items-center p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700" @click="goToLesson(video.id)">
+                  <div class="w-12 h-12 bg-gray-400 dark:bg-gray-600 text-white rounded-xl flex items-center justify-center font-bold mr-5" x-text="video.id">
+                  </div>
+                  <div class="flex-1">
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white" x-text="video.title"></h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1" x-text="video.duration + ' • ' + video.type"></p>
+                  </div>
+                  <div class="text-gray-400 dark:text-gray-500 text-xl">
+                    🔒
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar de información -->
+      <div class="space-y-8">
+        <!-- Instructor -->
+        <div class="card animate-on-scroll">
+          <div class="card-body">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+              <span class="text-3xl">👨‍🏫</span>
+              <span>Tu instructor</span>
+            </h3>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                JP
+              </div>
+              <div>
+                <p class="font-bold text-lg text-gray-900 dark:text-white">Juan Pérez</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Diseñador Gráfico Senior</p>
+                <div class="flex items-center gap-2 mt-1">
+                  <div class="flex text-yellow-400">
+                    ⭐⭐⭐⭐⭐
+                  </div>
+                  <span class="text-xs text-gray-500">4.9 (2,341 reseñas)</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+              Experto en diseño vectorial con más de 10 años de experiencia en Adobe Illustrator. Ha trabajado con marcas reconocidas y enseñado a más de 50,000 estudiantes.
+            </p>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+              <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="font-bold text-lg text-orange-600 dark:text-orange-400">50K+</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Estudiantes</div>
+              </div>
+              <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="font-bold text-lg text-orange-600 dark:text-orange-400">15</div>
+                <div class="text-xs text-gray-600 dark:text-gray-400">Cursos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detalles del curso -->
+        <div class="card animate-on-scroll">
+          <div class="card-body">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+              <span class="text-3xl">📊</span>
+              <span>Detalles del curso</span>
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <span class="text-xl">📈</span>
+                  <span class="text-gray-600 dark:text-gray-300">Nivel:</span>
+                </div>
+                <span class="font-bold text-green-600 dark:text-green-400">Principiante</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <span class="text-xl">⏱️</span>
+                  <span class="text-gray-600 dark:text-gray-300">Duración:</span>
+                </div>
+                <span class="font-bold">2.5 horas</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <span class="text-xl">🎬</span>
+                  <span class="text-gray-600 dark:text-gray-300">Videos:</span>
+                </div>
+                <span class="font-bold">12</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <span class="text-xl">🏆</span>
+                  <span class="text-gray-600 dark:text-gray-300">Certificado:</span>
+                </div>
+                <span class="font-bold text-green-600 dark:text-green-400">✅ Incluido</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <span class="text-xl">💰</span>
+                  <span class="text-gray-600 dark:text-gray-300">Precio:</span>
+                </div>
+                <span class="font-bold text-green-600 dark:text-green-400 text-xl">GRATIS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lo que aprenderás -->
+        <div class="card animate-on-scroll">
+          <div class="card-body">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+              <span class="text-3xl">🎯</span>
+              <span>Lo que aprenderás</span>
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <span class="text-green-500 text-xl mt-0.5">✓</span>
+                <span class="text-gray-700 dark:text-gray-300">Fundamentos completos de Adobe Illustrator</span>
+              </li>
+              <li class="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <span class="text-green-500 text-xl mt-0.5">✓</span>
+                <span class="text-gray-700 dark:text-gray-300">Herramientas avanzadas de dibujo vectorial</span>
+              </li>
+              <li class="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <span class="text-green-500 text-xl mt-0.5">✓</span>
+                <span class="text-gray-700 dark:text-gray-300">Técnicas profesionales de color y efectos</span>
+              </li>
+              <li class="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <span class="text-green-500 text-xl mt-0.5">✓</span>
+                <span class="text-gray-700 dark:text-gray-300">Creación de ilustraciones 3D y profesionales</span>
+              </li>
+              <li class="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <span class="text-green-500 text-xl mt-0.5">✓</span>
+                <span class="text-gray-700 dark:text-gray-300">Proyectos del mundo real y portfolio</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function courseData() {
+      return {
+        wishlist: JSON.parse(localStorage.getItem('eduhack_wishlist') || '[]'),
+        
+        videos: [
+          { id: 1, title: 'Presentación y objetivos del curso', duration: '1:14 min', type: 'Gratis' },
+          { id: 2, title: 'Herramientas básicas y entorno de trabajo', duration: '12:30 min', type: 'Premium' },
+          { id: 3, title: 'Creación de formas básicas y selección', duration: '15:45 min', type: 'Premium' },
+          { id: 4, title: 'Trabajando con colores y degradados', duration: '18:20 min', type: 'Premium' },
+          { id: 5, title: 'Efectos, sombras y volumen', duration: '22:15 min', type: 'Premium' },
+          { id: 6, title: 'Herramientas de texto y tipografía', duration: '16:30 min', type: 'Premium' },
+          { id: 7, title: 'Transparencias y modos de fusión', duration: '14:45 min', type: 'Premium' },
+          { id: 8, title: 'Creación de patrones y texturas', duration: '19:20 min', type: 'Premium' },
+          { id: 9, title: 'Ilustración 3D y perspectiva', duration: '25:10 min', type: 'Premium' },
+          { id: 10, title: 'Técnicas avanzadas de ilustración', duration: '21:35 min', type: 'Premium' },
+          { id: 11, title: 'Optimización y exportación', duration: '13:25 min', type: 'Premium' },
+          { id: 12, title: 'Proyecto final: Logo profesional', duration: '28:40 min', type: 'Premium' }
+        ],
+        
+        startCourse() {
+          window.location.href = 'video de illustrator 2011 p1.html';
+        },
+        
+        goToLesson(lessonNumber) {
+          if (lessonNumber === 1) {
+            window.location.href = 'video de illustrator 2011 p1.html';
+          } else if (lessonNumber <= 12) {
+            window.location.href = `video de illustrator 2011 p${lessonNumber}.html`;
+          } else {
+            // Mostrar mensaje de que necesita completar lecciones anteriores
+            if (typeof showNotification === 'function') {
+              showNotification('Completa la lección anterior para desbloquear esta', 'info');
+            } else {
+              alert('Completa la lección anterior para desbloquear esta');
+            }
+          }
+        },
+        
+        addToWishlist() {
+          const courseId = 'illustrator-2011';
+          const courseData = {
+            id: courseId,
+            title: 'Adobe Illustrator 2011',
+            description: 'Domina el arte del diseño vectorial desde cero',
+            thumbnail: '../../icons/illustrator 2011.svg',
+            rating: 4.8,
+            students: 856,
+            duration: '2.5 horas',
+            addedAt: new Date().toISOString()
+          };
+          
+          if (!this.wishlist.find(item => item.id === courseId)) {
+            this.wishlist.push(courseData);
+            localStorage.setItem('eduhack_wishlist', JSON.stringify(this.wishlist));
+            
+            if (typeof showNotification === 'function') {
+              showNotification('Curso agregado a favoritos ❤️', 'success');
+            } else {
+              alert('Curso agregado a favoritos ❤️');
+            }
+          } else {
+            if (typeof showNotification === 'function') {
+              showNotification('Este curso ya está en tus favoritos', 'info');
+            } else {
+              alert('Este curso ya está en tus favoritos');
+            }
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>

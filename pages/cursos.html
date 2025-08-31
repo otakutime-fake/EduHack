@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos - EduHack</title>
+  <meta name="description" content="Descubre nuestros cursos de programación, diseño y desarrollo web. Aprende desde principiante hasta experto.">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script src="../js/modals.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#16a34a',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <script>
+    function coursesPage() {
+      return {
+        searchQuery: '',
+        activeCategory: 'all',
+        levelFilter: '',
+        priceFilter: '',
+        sortBy: 'newest',
+        wishlist: JSON.parse(localStorage.getItem('eduhack_wishlist') || '[]'),
+        enrolledCourses: JSON.parse(localStorage.getItem('eduhack_enrolled') || '[]'),
+        
+        categories: [
+          { id: 'all', name: 'Todos' },
+          { id: 'programming', name: 'Programación' },
+          { id: 'design', name: 'Diseño' },
+          { id: 'data-science', name: 'Ciencia de Datos' },
+          { id: 'mobile', name: 'Desarrollo Móvil' }
+        ],
+        
+        allCourses: [
+          {
+            id: 1,
+            title: 'JavaScript Avanzado',
+            description: 'Domina JavaScript con conceptos avanzados y patrones de diseño modernos.',
+            category: 'programming',
+            level: 'advanced',
+            price: 99,
+            originalPrice: 149,
+            rating: 4.8,
+            students: 1234,
+            duration: 40,
+            lessons: 65,
+            thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          },
+          {
+            id: 2,
+            title: 'Diseño UX/UI Completo',
+            description: 'Aprende diseño de experiencia de usuario desde cero hasta nivel profesional.',
+            category: 'design',
+            level: 'intermediate',
+            price: 79,
+            rating: 4.9,
+            students: 856,
+            duration: 35,
+            lessons: 48,
+            thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          },
+          {
+            id: 3,
+            title: 'Python para Principiantes',
+            description: 'Introducción completa a Python con proyectos prácticos y ejercicios.',
+            category: 'programming',
+            level: 'beginner',
+            price: 0,
+            rating: 4.7,
+            students: 2156,
+            duration: 25,
+            lessons: 42,
+            thumbnail: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          },
+          {
+            id: 4,
+            title: 'Machine Learning Básico',
+            description: 'Fundamentos de aprendizaje automático con Python y scikit-learn.',
+            category: 'data-science',
+            level: 'intermediate',
+            price: 129,
+            rating: 4.6,
+            students: 743,
+            duration: 50,
+            lessons: 72,
+            thumbnail: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          },
+          {
+            id: 5,
+            title: 'React Native Completo',
+            description: 'Desarrollo de aplicaciones móviles con React Native para iOS y Android.',
+            category: 'mobile',
+            level: 'advanced',
+            price: 159,
+            rating: 4.8,
+            students: 567,
+            duration: 60,
+            lessons: 89,
+            thumbnail: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          },
+          {
+            id: 6,
+            title: 'Figma para Diseñadores',
+            description: 'Domina Figma para crear prototipos y diseños profesionales.',
+            category: 'design',
+            level: 'beginner',
+            price: 0,
+            rating: 4.5,
+            students: 1890,
+            duration: 18,
+            lessons: 28,
+            thumbnail: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          }
+        ],
+        
+        filteredCourses: [],
+        
+        init() {
+          this.filteredCourses = [...this.allCourses];
+          this.filterCourses();
+        },
+        
+        setActiveCategory(categoryId) {
+          this.activeCategory = categoryId;
+          this.filterCourses();
+        },
+        
+        filterCourses() {
+          let filtered = [...this.allCourses];
+          
+          // Filtrar por búsqueda
+          if (this.searchQuery) {
+            filtered = filtered.filter(course => 
+              course.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+              course.description.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
+          }
+          
+          // Filtrar por categoría
+          if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(course => course.category === this.activeCategory);
+          }
+          
+          // Filtrar por nivel
+          if (this.levelFilter) {
+            filtered = filtered.filter(course => course.level === this.levelFilter);
+          }
+          
+          // Filtrar por precio
+          if (this.priceFilter === 'free') {
+            filtered = filtered.filter(course => course.price === 0);
+          } else if (this.priceFilter === 'paid') {
+            filtered = filtered.filter(course => course.price > 0);
+          }
+          
+          this.filteredCourses = filtered;
+          this.sortCourses();
+        },
+        
+        sortCourses() {
+          switch (this.sortBy) {
+            case 'popular':
+              this.filteredCourses.sort((a, b) => b.students - a.students);
+              break;
+            case 'rating':
+              this.filteredCourses.sort((a, b) => b.rating - a.rating);
+              break;
+            case 'price-low':
+              this.filteredCourses.sort((a, b) => a.price - b.price);
+              break;
+            case 'price-high':
+              this.filteredCourses.sort((a, b) => b.price - a.price);
+              break;
+            default:
+              // newest - mantener orden original
+              break;
+          }
+        },
+        
+        toggleWishlist(courseId) {
+          const index = this.wishlist.indexOf(courseId);
+          if (index > -1) {
+            this.wishlist.splice(index, 1);
+          } else {
+            this.wishlist.push(courseId);
+          }
+          localStorage.setItem('eduhack_wishlist', JSON.stringify(this.wishlist));
+          window.showNotification(
+            this.wishlist.includes(courseId) ? 'Añadido a favoritos' : 'Eliminado de favoritos',
+            'success'
+          );
+        },
+        
+        isInWishlist(courseId) {
+          return this.wishlist.includes(courseId);
+        },
+        
+        enrollCourse(courseId) {
+          if (!this.enrolledCourses.includes(courseId)) {
+            this.enrolledCourses.push(courseId);
+            localStorage.setItem('eduhack_enrolled', JSON.stringify(this.enrolledCourses));
+            
+            if (typeof showNotification === 'function') {
+              showNotification('¡Te has inscrito exitosamente!', 'success');
+            } else {
+              alert('¡Te has inscrito exitosamente!');
+            }
+          }
+        },
+        
+        isEnrolled(courseId) {
+          return this.enrolledCourses.includes(courseId);
+        },
+        
+        viewCourse(courseId) {
+          // Redirigir a la página del curso
+          window.location.href = `video.html?course=${courseId}`;
+        },
+        
+        getCategoryColor(category) {
+          const colors = {
+            programming: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+            design: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200',
+            'data-science': 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200',
+            mobile: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200'
+          };
+          return colors[category] || 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200';
+        },
+        
+        getLevelColor(level) {
+          const colors = {
+            beginner: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+            intermediate: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+            advanced: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+          };
+          return colors[level] || 'bg-gray-100 text-gray-800';
+        },
+        
+        clearFilters() {
+          this.searchQuery = '';
+          this.activeCategory = 'all';
+          this.levelFilter = '';
+          this.priceFilter = '';
+          this.sortBy = 'newest';
+          this.filterCourses();
+        }
+      }
+    }
+  </script>
+</head>
+<body class="page-layout sidebar-layout bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100" x-data="coursesPage()">
+  <!-- Navegación consistente EduHack -->
+  <header class="eduhack-navbar">
+    <div class="flex items-center">
+      <a href="../index.html" class="eduhack-logo">EduHack</a>
+      <span class="eduhack-tagline">Hackea tu futuro</span>
+    </div>
+    <nav class="nav">
+      <a href="../index.html" class="nav-link">Inicio</a>
+      <a href="cursos.html" class="nav-link active">Cursos</a>
+      <a href="rutas.html" class="nav-link">Rutas</a>
+    </nav>
+
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="eduhack-sidebar">
+    <a href="../index.html" class="sidebar-link">
+      <span>🏠</span> Inicio
+    </a>
+    <a href="cursos.html" class="sidebar-link active">
+      <span>📚</span> Cursos
+    </a>
+    <a href="rutas.html" class="sidebar-link">
+      <span>🛤️</span> Rutas
+    </a>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="main-content pb-16">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-on-scroll">
+      Nuestros <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Cursos</span>
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-on-scroll">
+      Aprende programación, diseño y desarrollo web con nuestros cursos especializados. Desde principiante hasta experto.
+    </p>
+    
+    <!-- Search and Filters -->
+    <div class="mb-8">
+      <div class="search-container mb-6">
+        <input type="text" x-model="searchQuery" @input="filterCourses()" placeholder="Buscar cursos..." class="search-input">
+        <button class="search-btn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Category Filters -->
+      <div class="flex flex-wrap gap-4 justify-center mb-6">
+        <template x-for="category in categories" :key="category.id">
+          <button @click="setActiveCategory(category.id)" 
+                  :class="activeCategory === category.id ? 'bg-green-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'"
+                  class="px-6 py-2 rounded-full transition-colors" x-text="category.name">
+          </button>
+        </template>
+      </div>
+      
+      <!-- Advanced Filters -->
+      <div class="flex flex-wrap gap-4 justify-center items-center">
+        <select x-model="levelFilter" @change="filterCourses()" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="">Todos los niveles</option>
+          <option value="beginner">Principiante</option>
+          <option value="intermediate">Intermedio</option>
+          <option value="advanced">Avanzado</option>
+        </select>
+        
+        <select x-model="priceFilter" @change="filterCourses()" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="">Todos los precios</option>
+          <option value="free">Gratis</option>
+          <option value="paid">De pago</option>
+        </select>
+        
+        <select x-model="sortBy" @change="sortCourses()" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="newest">Más recientes</option>
+          <option value="popular">Más populares</option>
+          <option value="rating">Mejor valorados</option>
+          <option value="price-low">Precio: menor a mayor</option>
+          <option value="price-high">Precio: mayor a menor</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Results Info -->
+    <div class="mb-8 text-center">
+      <p class="text-gray-600 dark:text-gray-400">
+        Mostrando <span x-text="filteredCourses.length">0</span> de <span x-text="allCourses.length">0</span> cursos
+      </p>
+    </div>
+    
+    <!-- Courses Grid -->
+    <div class="content-grid">
+      <template x-for="course in filteredCourses" :key="course.id">
+        <div class="course-card">
+          <!-- Curso Programación Básica -->
+          <div class="course-card" x-show="(selectedCategory === 'all' || selectedCategory === 'programming') && (selectedLevel === 'all' || selectedLevel === 'beginner') && (searchQuery === '' || 'programación básica'.includes(searchQuery.toLowerCase()))">
+            <div class="card-image">
+              <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                <span class="text-white text-6xl group-hover:scale-110 transition-transform duration-300">💻</span>
+                <div class="card-badge badge-success">Principiante</div>
+                <div class="card-badge badge-primary" style="top: 4px; right: 4px; left: auto;">Programación</div>
+              </div>
+              <div class="card-overlay">
+                <a href="../cursos/curso illustrator 2011/illustrator 2011.html" class="btn btn-primary">Ver curso</a>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold">Programación Básica</h3>
+                <div class="flex items-center space-x-1 text-yellow-500">
+                  <span>⭐</span>
+                  <span class="text-sm font-medium text-gray-600 dark:text-gray-400">4.8</span>
+                </div>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                Aprende los fundamentos de la programación con ejemplos prácticos y ejercicios interactivos. Perfecto para comenzar tu carrera en tecnología.
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span>👨‍🏫 Prof. García</span>
+                <span>⏱️ 8 horas</span>
+                <span>👥 150 estudiantes</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-lg font-bold text-green-600 dark:text-green-400">Gratis</div>
+                <a href="video.html" class="btn btn-primary">
+                  Comenzar curso
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Curso Illustrator -->
+          <div class="course-card" x-show="(selectedCategory === 'all' || selectedCategory === 'design') && (selectedLevel === 'all' || selectedLevel === 'intermediate') && (searchQuery === '' || 'illustrator adobe diseño'.includes(searchQuery.toLowerCase()))">
+            <div class="card-image">
+              <div class="h-48 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center relative">
+                <span class="text-white text-6xl group-hover:scale-110 transition-transform duration-300">🎨</span>
+                <div class="card-badge badge-warning">Intermedio</div>
+                <div class="card-badge badge-secondary" style="top: 4px; right: 4px; left: auto;">Diseño</div>
+              </div>
+              <div class="card-overlay">
+                <a href="#" class="btn btn-primary">Ver curso</a>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold">Adobe Illustrator 2011</h3>
+                <div class="flex items-center space-x-1 text-yellow-500">
+                  <span>⭐</span>
+                  <span class="text-sm font-medium text-gray-600 dark:text-gray-400">4.9</span>
+                </div>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                Domina Adobe Illustrator desde cero hasta nivel avanzado. Aprende diseño vectorial, logos, ilustraciones y proyectos profesionales.
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span>👩‍🎨 Prof. Martínez</span>
+                <span>⏱️ 12 horas</span>
+                <span>👥 89 estudiantes</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-lg font-bold text-blue-600 dark:text-blue-400">$49</div>
+                <a href="illustrator-2011.html" class="btn btn-primary">
+                  Ver curso
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Curso Visual Studio -->
+          <div class="course-card" x-show="(selectedCategory === 'all' || selectedCategory === 'tools') && (selectedLevel === 'all' || selectedLevel === 'beginner') && (searchQuery === '' || 'visual studio herramientas setup'.includes(searchQuery.toLowerCase()))">
+            <div class="card-image">
+              <div class="h-48 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center relative">
+                <span class="text-white text-6xl group-hover:scale-110 transition-transform duration-300">⚙️</span>
+                <div class="card-badge badge-success">Principiante</div>
+                <div class="card-badge badge-info" style="top: 4px; right: 4px; left: auto;">Herramientas</div>
+                <div class="card-overlay" style="opacity: 1; background: rgba(0,0,0,0.5);">
+                  <span class="badge badge-warning text-lg">Próximamente</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold">Visual Studio Setup</h3>
+                <div class="flex items-center space-x-1 text-gray-400">
+                  <span>⭐</span>
+                  <span class="text-sm font-medium text-gray-600 dark:text-gray-400">--</span>
+                </div>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                Configura tu entorno de desarrollo con Visual Studio para programación profesional. Aprende las mejores prácticas y extensiones.
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span>👨‍💻 Prof. López</span>
+                <span>⏱️ 4 horas</span>
+                <span>👥 -- estudiantes</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-lg font-bold text-green-600 dark:text-green-400">Gratis</div>
+                <button class="btn btn-secondary opacity-50 cursor-not-allowed">
+                  Próximamente
+                </button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Curso C++ Avanzado -->
+          <div class="course-card" x-show="(selectedCategory === 'all' || selectedCategory === 'programming') && (selectedLevel === 'all' || selectedLevel === 'advanced') && (searchQuery === '' || 'c++ avanzado programación'.includes(searchQuery.toLowerCase()))">
+            <div class="card-image">
+              <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center relative">
+                <span class="text-white text-6xl group-hover:scale-110 transition-transform duration-300">🚀</span>
+                <div class="card-badge badge-danger">Avanzado</div>
+                <div class="card-badge badge-primary" style="top: 4px; right: 4px; left: auto;">Programación</div>
+                <div class="card-overlay" style="opacity: 1; background: rgba(0,0,0,0.5);">
+                  <span class="badge badge-warning text-lg">Próximamente</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold">C++ Avanzado</h3>
+                <div class="flex items-center space-x-1 text-gray-400">
+                  <span>⭐</span>
+                  <span class="text-sm font-medium text-gray-600 dark:text-gray-400">--</span>
+                </div>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                Técnicas avanzadas de C++ para desarrollo de software de alto rendimiento. Templates, STL, concurrencia y optimización.
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span>👨‍💻 Prof. Rodríguez</span>
+                <span>⏱️ 20 horas</span>
+                <span>👥 -- estudiantes</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-lg font-bold text-blue-600 dark:text-blue-400">$89</div>
+                <button class="btn btn-secondary opacity-50 cursor-not-allowed">
+                  Próximamente
+                </button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Curso Web Development -->
+          <div class="course-card" x-show="(selectedCategory === 'all' || selectedCategory === 'web') && (selectedLevel === 'all' || selectedLevel === 'intermediate') && (searchQuery === '' || 'desarrollo web html css javascript'.includes(searchQuery.toLowerCase()))">
+            <div class="card-image">
+              <div class="h-48 bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center relative">
+                <span class="text-white text-6xl group-hover:scale-110 transition-transform duration-300">🌐</span>
+                <div class="card-badge badge-warning">Intermedio</div>
+                <div class="card-badge badge-accent" style="top: 4px; right: 4px; left: auto;">Desarrollo Web</div>
+                <div class="card-overlay" style="opacity: 1; background: rgba(0,0,0,0.5);">
+                  <span class="badge badge-warning text-lg">Próximamente</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold">Desarrollo Web Moderno</h3>
+                <div class="flex items-center space-x-1 text-gray-400">
+                  <span>⭐</span>
+                  <span class="text-sm font-medium text-gray-600 dark:text-gray-400">--</span>
+                </div>
+              </div>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                Crea sitios web modernos con HTML5, CSS3, JavaScript ES6+ y frameworks actuales como React y Vue.js.
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span>👩‍💻 Prof. Fernández</span>
+                <span>⏱️ 25 horas</span>
+                <span>👥 -- estudiantes</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-lg font-bold text-blue-600 dark:text-blue-400">$79</div>
+                <button class="btn btn-secondary opacity-50 cursor-not-allowed">
+                  Próximamente
+                </button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Más cursos próximamente -->
+          <div class="course-card course-card-placeholder">
+            <span class="text-4xl mb-4 block group-hover:scale-110 transition-transform duration-300">➕</span>
+            <h3 class="text-xl font-bold text-gray-600 dark:text-gray-300 mb-2">Más cursos próximamente</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-4">Estamos trabajando en nuevos cursos increíbles para ti.</p>
+            <a href="#" class="btn btn-outline">Sugerir curso</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer profesional -->
+  <footer class="bg-gray-900 dark:bg-black text-white py-16">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Información de la empresa -->
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <span class="text-white font-bold text-lg">E</span>
+            </div>
+            <h3 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">EduHack</h3>
+          </div>
+          <p class="text-gray-300 mb-6 max-w-md">
+            Transformamos vidas a través de la educación tecnológica. Aprende programación, diseño y desarrollo web con los mejores instructores.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">📧</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">🐦</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">📘</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">💼</a>
+          </div>
+        </div>
+        
+        <!-- Enlaces rápidos -->
+        <div>
+          <h4 class="font-semibold mb-4">Navegación</h4>
+          <ul class="space-y-2 text-gray-300">
+            <li><a href="../index.html" class="hover:text-white transition-colors">Inicio</a></li>
+            <li><a href="cursos.html" class="hover:text-white transition-colors">Cursos</a></li>
+            <li><a href="rutas.html" class="hover:text-white transition-colors">Rutas de aprendizaje</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Comunidad</a></li>
+          </ul>
+        </div>
+        
+        <!-- Soporte -->
+        <div>
+          <h4 class="font-semibold mb-4">Soporte</h4>
+          <ul class="space-y-2 text-gray-300">
+            <li><a href="#" class="hover:text-white transition-colors">Centro de ayuda</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Términos de uso</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacidad</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 EduHack. Todos los derechos reservados. Hecho con ❤️ para estudiantes.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Funcionalidad avanzada de búsqueda y filtros
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('coursesPage', () => ({
+        searchQuery: '',
+        activeCategory: 'all',
+        levelFilter: '',
+        priceFilter: '',
+        sortBy: 'newest',
+        wishlist: JSON.parse(localStorage.getItem('wishlist') || '[]'),
+        enrolledCourses: JSON.parse(localStorage.getItem('enrolledCourses') || '[]'),
+        
+        categories: [
+          { id: 'all', name: 'Todos' },
+          { id: 'programming', name: 'Programación' },
+          { id: 'design', name: 'Diseño' },
+          { id: 'web', name: 'Desarrollo Web' },
+          { id: 'tools', name: 'Herramientas' }
+        ],
+        
+        allCourses: [
+          {
+            id: 1,
+            title: 'Programación Básica',
+            description: 'Aprende los fundamentos de la programación con ejemplos prácticos y ejercicios interactivos.',
+            category: 'programming',
+            level: 'beginner',
+            price: 0,
+            rating: 4.8,
+            students: 150,
+            duration: 8,
+            lessons: 25,
+            thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          },
+          {
+            id: 2,
+            title: 'Adobe Illustrator 2011',
+            description: 'Domina Adobe Illustrator desde cero hasta nivel avanzado. Aprende diseño vectorial, logos, ilustraciones.',
+            category: 'design',
+            level: 'intermediate',
+            price: 49,
+            rating: 4.9,
+            students: 89,
+            duration: 12,
+            lessons: 35,
+            thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+          }
+        ],
+        
+        filteredCourses: [],
+        
+        init() {
+          this.filteredCourses = [...this.allCourses];
+          this.filterCourses();
+        },
+        
+        setActiveCategory(categoryId) {
+          this.activeCategory = categoryId;
+          this.filterCourses();
+        },
+        
+        filterCourses() {
+          let filtered = [...this.allCourses];
+          
+          // Filtrar por búsqueda
+          if (this.searchQuery) {
+            filtered = filtered.filter(course => 
+              course.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+              course.description.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
+          }
+          
+          // Filtrar por categoría
+          if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(course => course.category === this.activeCategory);
+          }
+          
+          // Filtrar por nivel
+          if (this.levelFilter) {
+            filtered = filtered.filter(course => course.level === this.levelFilter);
+          }
+          
+          // Filtrar por precio
+          if (this.priceFilter === 'free') {
+            filtered = filtered.filter(course => course.price === 0);
+          } else if (this.priceFilter === 'paid') {
+            filtered = filtered.filter(course => course.price > 0);
+          }
+          
+          this.filteredCourses = filtered;
+          this.sortCourses();
+        },
+        
+        sortCourses() {
+          switch (this.sortBy) {
+            case 'popular':
+              this.filteredCourses.sort((a, b) => b.students - a.students);
+              break;
+            case 'rating':
+              this.filteredCourses.sort((a, b) => b.rating - a.rating);
+              break;
+            case 'price-low':
+              this.filteredCourses.sort((a, b) => a.price - b.price);
+              break;
+            case 'price-high':
+              this.filteredCourses.sort((a, b) => b.price - a.price);
+              break;
+            default:
+              // newest - mantener orden original
+              break;
+          }
+        },
+        
+        toggleWishlist(courseId) {
+          const index = this.wishlist.indexOf(courseId);
+          if (index > -1) {
+            this.wishlist.splice(index, 1);
+          } else {
+            this.wishlist.push(courseId);
+          }
+          localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+        },
+        
+        isInWishlist(courseId) {
+          return this.wishlist.includes(courseId);
+        },
+        
+        enrollCourse(courseId) {
+          if (!this.enrolledCourses.includes(courseId)) {
+            this.enrolledCourses.push(courseId);
+            localStorage.setItem('enrolledCourses', JSON.stringify(this.enrolledCourses));
+          }
+        },
+        
+        isEnrolled(courseId) {
+          return this.enrolledCourses.includes(courseId);
+        },
+        
+        viewCourse(courseId) {
+          // Redirigir a la página del curso
+          window.location.href = `course-${courseId}.html`;
+        },
+        
+        getCategoryColor(category) {
+          const colors = {
+            programming: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+            design: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200',
+            web: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200',
+            tools: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200'
+          };
+          return colors[category] || 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200';
+        },
+        
+        getLevelColor(level) {
+          const colors = {
+            beginner: 'bg-green-100 text-green-800',
+            intermediate: 'bg-yellow-100 text-yellow-800',
+            advanced: 'bg-red-100 text-red-800'
+          };
+          return colors[level] || 'bg-gray-100 text-gray-800';
+        },
+        
+        clearFilters() {
+          this.searchQuery = '';
+          this.activeCategory = 'all';
+          this.levelFilter = '';
+          this.priceFilter = '';
+          this.sortBy = 'newest';
+          this.filterCourses();
+        }
+      }));
+    });
+    
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    // Animación de entrada para las tarjetas
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Observar todas las tarjetas de cursos
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+      });
+    });
+  </script>
+
+</body>
+</html>

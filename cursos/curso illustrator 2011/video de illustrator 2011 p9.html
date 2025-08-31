@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adobe Illustrator 2011 - Clase 9 | EduHack</title>
+  <meta name="description" content="Aprende los fundamentos de Adobe Illustrator 2011 con esta clase introductoria. Configuración y primeros pasos.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Video.js -->
+  <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet">
+  <link href="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.css" rel="stylesheet">
+  
+  <!-- Scripts -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <style>
+    .video-js {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .video-js .vjs-big-play-button {
+      background: rgba(59, 130, 246, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      font-size: 32px;
+      transition: all 0.3s ease;
+    }
+    
+    .video-js .vjs-big-play-button:hover {
+      background: rgba(59, 130, 246, 1);
+      transform: scale(1.05);
+    }
+    
+    .video-js .vjs-control-bar {
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    }
+    
+    .video-js .vjs-progress-control .vjs-progress-holder {
+      height: 4px;
+      border-radius: 2px;
+    }
+    
+    .video-js .vjs-play-progress {
+      background: #3b82f6;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100" x-data="{ sidebarOpen: false, currentLesson: 9, showNotes: false }">
+  <!-- Navegación -->
+  <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 md:hidden">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <a href="../../index.html" class="flex items-center space-x-3 ml-4 md:ml-0">
+            <div class="w-8 h-8 bg-gradient-to-r from-primary-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">E</span>
+            </div>
+            <span class="text-xl font-bold text-gray-900 dark:text-white">EduHack</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="../../pages/rutas.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">Rutas</a>
+          <a href="../../pages/cursos.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">Cursos</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="fixed left-0 top-16 w-80 h-full bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 z-40 transition-transform duration-300" :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }">
+    <div class="p-6">
+      <!-- Header del curso -->
+      <div class="mb-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold text-lg">🎨</span>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">Adobe Illustrator 2011</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">12 lecciones • 8h 45m</p>
+          </div>
+        </div>
+        
+        <!-- Progreso del curso -->
+        <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+          <div class="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full" style="width: 75%"></div>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Progreso: 9 de 12 lecciones completadas</p>
+      </div>
+      
+      <!-- Lista de lecciones -->
+      <div class="max-h-96 overflow-y-auto">
+        <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wide">Contenido del curso</h3>
+        <ul class="space-y-2">
+          <li class="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 rounded-lg p-4 cursor-pointer" @click="currentLesson = 9">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-xs font-bold">▶</span>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-900 dark:text-gray-100">Tipografía Avanzada</h4>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Trabajando con texto</p>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 dark:text-gray-400 font-mono">32:45</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="pt-16" :class="{ 'ml-80': sidebarOpen, 'ml-0': !sidebarOpen }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- Video principal en la parte superior -->
+      <div class="mb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+          <div class="relative">
+            <video
+              id="mi-video"
+              class="video-js vjs-big-play-centered w-full"
+              controls
+              preload="auto"
+              width="1200"
+              height="675"
+              poster="../../icons/illustrator 2011.svg"
+              data-setup="{}"
+            >
+              <source src="video 9.mp4" type="video/mp4" />
+              <track kind="captions" src="https://vjs.zencdn.net/v/oceans.vtt" srclang="es" label="Español" default>
+              <p class="vjs-no-js p-4 text-center text-gray-600 dark:text-gray-400">
+                Para ver este video necesitas habilitar JavaScript y considerar actualizar a un navegador que
+                <a href="https://videojs.com/html5-video-support/" target="_blank" class="text-primary-600 hover:underline">
+                  soporte video HTML5
+                </a>
+              </p>
+            </video>
+            
+            <!-- Barra de progreso interactiva -->
+            <div id="interactive-progress" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-75 text-white px-4 py-2 rounded-r-lg opacity-0 transition-opacity duration-300 pointer-events-none z-10">
+              <div class="text-sm font-medium mb-1">Progreso del video</div>
+              <div class="w-48 bg-gray-600 rounded-full h-2 mb-2">
+                <div id="progress-bar" class="bg-blue-500 h-2 rounded-full" style="width: 0%"></div>
+              </div>
+              <div class="text-xs">
+                <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+              </div>
+            </div>
+            
+            <!-- Botón siguiente video -->
+            <div id="next-video-overlay" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none z-20">
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-8 text-center max-w-sm mx-4">
+                <div class="text-4xl mb-4">🎉</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">¡Video completado!</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">Continuando al siguiente video en:</p>
+                <div id="countdown" class="text-3xl font-bold text-blue-600 mb-6">3</div>
+                <div class="space-y-3">
+                  <button id="next-video-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    ▶️ Siguiente Video
+                  </button>
+                  <button id="stay-here-btn" class="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-6 rounded-lg transition-colors">
+                    Quedarme aquí
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Información de la lección -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Información principal -->
+        <div class="lg:col-span-2">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <div class="mb-6">
+              <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">Tipografía Avanzada</h1>
+              <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6">
+                Domina las técnicas avanzadas de tipografía y crea diseños de texto impactantes.
+              </p>
+              
+              <!-- Metadatos de la lección -->
+              <div class="flex flex-wrap items-center gap-6 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">⏱️</span>
+                  <span>32:45 minutos</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">📊</span>
+                  <span>Nivel: Intermedio</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">👥</span>
+                  <span>2,847 estudiantes</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">⭐</span>
+                  <span>4.9 (312 reseñas)</span>
+                </div>
+              </div>
+              
+              <!-- Controles de la lección -->
+              <div class="flex flex-wrap items-center gap-3">
+                <button @click="showNotes = !showNotes" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                  <span x-show="!showNotes">📝 Mostrar notas</span>
+                  <span x-show="showNotes">📝 Ocultar notas</span>
+                </button>
+                <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                  ✓ Marcar como completada
+                </button>
+                <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                  📚 Ver contenido
+                </button>
+              </div>
+            </div>
+            
+            <!-- Objetivos de aprendizaje -->
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Objetivos de aprendizaje</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start space-x-3">
+                  <span class="flex-shrink-0 w-6 h-6 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center text-sm font-bold">✓</span>
+                  <span class="text-gray-700 dark:text-gray-300">Crear efectos de texto avanzados</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <span class="flex-shrink-0 w-6 h-6 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center text-sm font-bold">✓</span>
+                  <span class="text-gray-700 dark:text-gray-300">Trabajar con trayectorias de texto</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <span class="flex-shrink-0 w-6 h-6 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center text-sm font-bold">✓</span>
+                  <span class="text-gray-700 dark:text-gray-300">Aplicar estilos de carácter y párrafo</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Panel lateral de recursos -->
+        <div class="lg:col-span-1">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Recursos de la clase</h2>
+            
+            <!-- Resumen -->
+            <div class="mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Resumen</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                En esta novena clase, profundizaremos en las técnicas avanzadas de tipografía.
+              </p>
+            </div>
+            
+            <!-- Recursos descargables -->
+            <div class="mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Descargas</h3>
+              <div class="space-y-3">
+                <a href="#" class="flex items-center space-x-3 p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <span class="text-xl">📄</span>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Archivos de práctica</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">AI, PDF • 2.3 MB</div>
+                  </div>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <span class="text-xl">📚</span>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Guía de referencia</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">PDF • 1.8 MB</div>
+                  </div>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <span class="text-xl">💬</span>
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Foro de discusión</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">Comunidad activa</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            
+            <!-- Progreso del curso -->
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Tu progreso</h3>
+              <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Lecciones completadas</span>
+                  <span class="text-sm text-gray-500 dark:text-gray-400">9/12</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full" style="width: 75%"></div>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">¡Casi terminando! Te quedan 3 lecciones.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Notas del estudiante -->
+      <div x-show="showNotes" x-transition class="mt-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">📝 Mis notas</h3>
+          <textarea 
+            class="w-full h-32 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors" 
+            placeholder="Escribe tus notas sobre esta lección de Adobe Illustrator 2011...">
+          </textarea>
+          <div class="flex justify-end mt-4">
+            <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+              💾 Guardar notas
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+  <script src="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.min.js"></script>
+  
+  <script>
+    // Variables globales
+    let player;
+    let countdownTimer;
+    let autoAdvanceTimer;
+    let isMouseOnLeft = false;
+    
+    // Configuración avanzada del reproductor Video.js
+    document.addEventListener('DOMContentLoaded', function() {
+      player = videojs('mi-video', {
+        responsive: true,
+        fluid: true,
+        playbackRates: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+        plugins: {
+          seekButtons: {
+            forward: 10,
+            back: 10
+          }
+        },
+        controls: true,
+        preload: 'auto',
+        html5: {
+          vhs: {
+            overrideNative: true
+          },
+          nativeVideoTracks: false,
+          nativeAudioTracks: false,
+          nativeTextTracks: false
+        }
+      });
+
+      // Eventos del reproductor
+      player.ready(function() {
+        console.log('Reproductor Video.js inicializado correctamente');
+        
+        // Configurar atajos de teclado
+        player.on('keydown', function(event) {
+          switch(event.which) {
+            case 32: // Espacio - Play/Pause
+              event.preventDefault();
+              if (player.paused()) {
+                player.play();
+              } else {
+                player.pause();
+              }
+              break;
+            case 37: // Flecha izquierda - Retroceder 10s
+              event.preventDefault();
+              player.currentTime(player.currentTime() - 10);
+              break;
+            case 39: // Flecha derecha - Avanzar 10s
+              event.preventDefault();
+              player.currentTime(player.currentTime() + 10);
+              break;
+            case 38: // Flecha arriba - Subir volumen
+              event.preventDefault();
+              player.volume(Math.min(1, player.volume() + 0.1));
+              break;
+            case 40: // Flecha abajo - Bajar volumen
+              event.preventDefault();
+              player.volume(Math.max(0, player.volume() - 0.1));
+              break;
+            case 70: // F - Pantalla completa
+              event.preventDefault();
+              if (player.isFullscreen()) {
+                player.exitFullscreen();
+              } else {
+                player.requestFullscreen();
+              }
+              break;
+          }
+        });
+        
+        // Guardar progreso del video
+        player.on('timeupdate', function() {
+          const currentTime = player.currentTime();
+          const duration = player.duration();
+          if (duration > 0) {
+            const progress = (currentTime / duration) * 100;
+            localStorage.setItem('video-progress-lesson-9', currentTime);
+          }
+        });
+        
+        // Restaurar progreso guardado
+        const savedProgress = localStorage.getItem('video-progress-lesson-9');
+        if (savedProgress && parseFloat(savedProgress) > 0) {
+          player.currentTime(parseFloat(savedProgress));
+        }
+      });
+      
+      // Marcar como completado cuando termine el video
+      player.on('ended', function() {
+        console.log('Video completado');
+        showNextVideoOverlay();
+      });
+      
+      // Configurar barra de progreso interactiva
+      setupInteractiveProgress();
+      
+      // Configurar overlay de siguiente video
+      setupNextVideoOverlay();
+    });
+    
+    // Configurar barra de progreso interactiva
+    function setupInteractiveProgress() {
+      const videoContainer = document.querySelector('#mi-video').parentElement;
+      const progressOverlay = document.getElementById('interactive-progress');
+      const progressBar = document.getElementById('progress-bar');
+      const currentTimeSpan = document.getElementById('current-time');
+      const totalTimeSpan = document.getElementById('total-time');
+      
+      // Mostrar/ocultar barra de progreso al mover el ratón
+      videoContainer.addEventListener('mousemove', function(e) {
+        const rect = videoContainer.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const containerWidth = rect.width;
+        
+        // Si el ratón está en el lado izquierdo (30% del ancho)
+        if (mouseX < containerWidth * 0.3) {
+          if (!isMouseOnLeft) {
+            isMouseOnLeft = true;
+            progressOverlay.classList.remove('opacity-0');
+            progressOverlay.classList.add('opacity-100');
+          }
+        } else {
+          if (isMouseOnLeft) {
+            isMouseOnLeft = false;
+            progressOverlay.classList.remove('opacity-100');
+            progressOverlay.classList.add('opacity-0');
+          }
+        }
+      });
+      
+      // Ocultar cuando el ratón sale del contenedor
+      videoContainer.addEventListener('mouseleave', function() {
+        isMouseOnLeft = false;
+        progressOverlay.classList.remove('opacity-100');
+        progressOverlay.classList.add('opacity-0');
+      });
+      
+      // Actualizar progreso en tiempo real
+      player.on('timeupdate', function() {
+        const currentTime = player.currentTime();
+        const duration = player.duration();
+        
+        if (duration > 0) {
+          const progress = (currentTime / duration) * 100;
+          progressBar.style.width = progress + '%';
+          
+          currentTimeSpan.textContent = formatTime(currentTime);
+          totalTimeSpan.textContent = formatTime(duration);
+        }
+      });
+    }
+    
+    // Configurar overlay de siguiente video
+    function setupNextVideoOverlay() {
+      const nextVideoBtn = document.getElementById('next-video-btn');
+      const stayHereBtn = document.getElementById('stay-here-btn');
+      
+      nextVideoBtn.addEventListener('click', function() {
+        goToNextVideo();
+      });
+      
+      stayHereBtn.addEventListener('click', function() {
+        hideNextVideoOverlay();
+      });
+    }
+    
+    // Mostrar overlay de siguiente video
+    function showNextVideoOverlay() {
+      const overlay = document.getElementById('next-video-overlay');
+      const countdownElement = document.getElementById('countdown');
+      
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      
+      let countdown = 3;
+      countdownElement.textContent = countdown;
+      
+      countdownTimer = setInterval(function() {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownTimer);
+          goToNextVideo();
+        }
+      }, 1000);
+    }
+    
+    // Ocultar overlay de siguiente video
+    function hideNextVideoOverlay() {
+      const overlay = document.getElementById('next-video-overlay');
+      
+      if (countdownTimer) {
+        clearInterval(countdownTimer);
+      }
+      
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+    }
+    
+    // Ir al siguiente video
+    function goToNextVideo() {
+      // Determinar el número del video actual
+      const currentPage = window.location.pathname;
+      const currentVideoMatch = currentPage.match(/p(\d+)\.html/);
+      
+      if (currentVideoMatch) {
+        const currentVideoNum = parseInt(currentVideoMatch[1]);
+        const nextVideoNum = currentVideoNum + 1;
+        
+        // Si hay un siguiente video (máximo 12)
+        if (nextVideoNum <= 12) {
+          const nextVideoPage = currentPage.replace(/p\d+\.html/, `p${nextVideoNum}.html`);
+          window.location.href = nextVideoPage;
+        } else {
+          // Si es el último video, ir a la página del curso
+          window.location.href = '../illustrator 2011.html';
+        }
+      }
+    }
+    
+    // Formatear tiempo en formato mm:ss
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+    });
+    
+    // Función para mostrar notificación de completado
+    function showCompletionNotification() {
+      // Crear notificación temporal
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+      notification.innerHTML = '🎉 ¡Lección completada! Continúa con la siguiente.';
+      document.body.appendChild(notification);
+      
+      // Animar entrada
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+      
+      // Remover después de 5 segundos
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (document.body.contains(notification)) {
+            document.body.removeChild(notification);
+          }
+        }, 300);
+      }, 5000);
+    }
+    
+    // Funciones para Alpine.js
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('videoPlayer', {
+        currentLesson: 9,
+        lessons: [
+          { id: 1, title: 'Introducción a la programación', duration: '15:30', completed: true },
+          { id: 2, title: 'Variables y tipos de datos', duration: '22:15', completed: false },
+          { id: 3, title: 'Estructuras de control', duration: '18:45', completed: false },
+          { id: 4, title: 'Funciones y métodos', duration: '25:10', completed: false },
+          { id: 5, title: 'Arrays y estructuras', duration: '30:20', completed: false }
+        ],
+        
+        switchLesson(lessonId) {
+          this.currentLesson = lessonId;
+          // Aquí cargarías el video correspondiente
+          console.log(`Cambiando a lección ${lessonId}`);
+        },
+        
+        markAsCompleted() {
+          const lesson = this.lessons.find(l => l.id === this.currentLesson);
+          if (lesson) {
+            lesson.completed = true;
+            showCompletionNotification();
+          }
+        }
+      });
+    });
+    
+    // Persistencia del modo oscuro
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('theme', {
+        dark: localStorage.getItem('darkMode') === 'true',
+        
+        toggle() {
+          this.dark = !this.dark;
+          localStorage.setItem('darkMode', this.dark);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

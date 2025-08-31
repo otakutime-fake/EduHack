@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rutas de Aprendizaje - EduHack</title>
+  <meta name="description" content="Descubre nuestras rutas de aprendizaje estructuradas para convertirte en un profesional. Desde principiante hasta experto.">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script src="../js/modals.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#16a34a',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="page-layout sidebar-layout bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100" x-data="routesPage()">
+  <!-- Navegación consistente EduHack -->
+  <header class="eduhack-navbar">
+    <div class="flex items-center">
+      <a href="../index.html" class="eduhack-logo">EduHack</a>
+      <span class="eduhack-tagline">Hackea tu futuro</span>
+    </div>
+    <nav class="nav">
+      <a href="../index.html" class="nav-link">Inicio</a>
+      <a href="cursos.html" class="nav-link">Cursos</a>
+      <a href="rutas.html" class="nav-link active">Rutas</a>
+    </nav>
+
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="eduhack-sidebar">
+    <a href="../index.html" class="sidebar-link">
+      <span>🏠</span> Inicio
+    </a>
+    <a href="cursos.html" class="sidebar-link">
+      <span>📚</span> Cursos
+    </a>
+    <a href="rutas.html" class="sidebar-link active">
+      <span>🛤️</span> Rutas
+    </a>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="main-content pb-16">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-on-scroll">
+      Rutas de <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Aprendizaje</span>
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-on-scroll">
+      Sigue un camino estructurado hacia tu carrera profesional. Nuestras rutas te guían paso a paso desde principiante hasta experto.
+    </p>
+    
+    <!-- Search and Filters -->
+    <div class="mb-8">
+      <div class="search-container mb-6">
+        <input type="text" x-model="searchQuery" @input="filterRoutes()" placeholder="Buscar rutas de aprendizaje..." class="search-input">
+        <button class="search-btn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Category Filters -->
+      <div class="flex flex-wrap gap-4 justify-center mb-6">
+        <template x-for="category in categories" :key="category.id">
+          <button @click="setActiveCategory(category.id)" 
+                  :class="activeCategory === category.id ? 'bg-green-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'"
+                  class="px-6 py-2 rounded-full transition-colors" x-text="category.name">
+          </button>
+        </template>
+      </div>
+      
+      <!-- Advanced Filters -->
+      <div class="flex flex-wrap gap-4 justify-center items-center">
+        <select x-model="difficultyFilter" @change="filterRoutes()" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="">Todas las dificultades</option>
+          <option value="beginner">Principiante</option>
+          <option value="intermediate">Intermedio</option>
+          <option value="advanced">Avanzado</option>
+        </select>
+        
+        <select x-model="durationFilter" @change="filterRoutes()" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="">Todas las duraciones</option>
+          <option value="short">Corta (1-3 meses)</option>
+          <option value="medium">Media (3-6 meses)</option>
+          <option value="long">Larga (6+ meses)</option>
+        </select>
+        
+        <select x-model="sortBy" @change="sortRoutes()" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="newest">Más recientes</option>
+          <option value="popular">Más populares</option>
+          <option value="rating">Mejor valoradas</option>
+          <option value="duration-short">Duración: corta a larga</option>
+          <option value="duration-long">Duración: larga a corta</option>
+        </select>
+      </div>
+    </div>
+    <!-- Results Info -->
+    <div class="mb-8 text-center">
+      <p class="text-gray-600 dark:text-gray-400">
+        Mostrando <span x-text="filteredRoutes.length">0</span> de <span x-text="allRoutes.length">0</span> rutas
+      </p>
+    </div>
+    
+    <!-- Routes Grid -->
+    <div class="content-grid">
+      <template x-for="route in filteredRoutes" :key="route.id">
+        <div class="route-card">
+          <div class="card-image">
+            <div :class="getRouteGradient(route.category)" class="h-32 flex items-center justify-center relative">
+              <div class="absolute top-4 right-4">
+                <button @click="toggleWishlist(route.id)" :class="isInWishlist(route.id) ? 'text-red-500' : 'text-white'" class="p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="text-center text-white">
+                <div class="w-12 h-12 mx-auto mb-2 flex items-center justify-center" x-html="getRouteIcon(route.category)"></div>
+                <h3 class="text-lg font-bold" x-text="route.name"></h3>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span :class="getCategoryColor(route.category)" class="badge badge-secondary" x-text="route.category"></span>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                </svg>
+                <span class="ml-1 text-gray-600 dark:text-gray-400 text-sm" x-text="route.rating">4.9</span>
+                <span class="ml-2 text-gray-500 dark:text-gray-500 text-sm">(<span x-text="route.students">234</span>)</span>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2" x-text="route.description"></p>
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Duración:</span>
+                <span class="font-medium" x-text="route.duration"></span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Cursos:</span>
+                <span class="font-medium" x-text="route.courses.length + ' cursos'"></span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Nivel:</span>
+                <span :class="getDifficultyColor(route.difficulty)" class="badge badge-sm" x-text="route.difficulty"></span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Progreso:</span>
+                <div class="flex items-center">
+                  <div class="w-16 bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-2">
+                    <div :style="'width: ' + getRouteProgress(route.id) + '%'" class="bg-green-600 h-2 rounded-full transition-all duration-300"></div>
+                  </div>
+                  <span class="text-xs font-medium" x-text="getRouteProgress(route.id) + '%'"></span>
+                </div>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button @click="startRoute(route.id)" :disabled="isRouteStarted(route.id)" 
+                      :class="isRouteStarted(route.id) ? 'bg-blue-600 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'" 
+                      class="flex-1 text-white py-2 rounded-lg transition-colors">
+                <span x-show="!isRouteStarted(route.id)">Comenzar Ruta</span>
+                <span x-show="isRouteStarted(route.id)">Continuar</span>
+              </button>
+              <button @click="viewRoute(route.id)" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Ver
+              </button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    
+    <!-- No Results -->
+    <div x-show="filteredRoutes.length === 0" class="empty-state">
+      <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47.881-6.08 2.33l-.147.083A7.994 7.994 0 0112 21a7.994 7.994 0 016.227-2.587l-.147-.083z"></path>
+      </svg>
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No se encontraron rutas</h3>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">Intenta ajustar tus filtros de búsqueda</p>
+      <button @click="clearFilters()" class="btn btn-primary">
+        Limpiar filtros
+      </button>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('toggleDark').onclick = function () {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+  <script src="../js/navigation.js"></script>
+   <script src="../js/animations.js"></script>
+   <script src="../js/dark-mode.js"></script>
+   <script src="../js/auth.js"></script>
+   <script src="../js/modals.js"></script>
+   <script src="../js/progress.js"></script>
+  
+  <script>
+    function routesPage() {
+      return {
+        searchQuery: '',
+        activeCategory: 'all',
+        difficultyFilter: '',
+        durationFilter: '',
+        sortBy: 'newest',
+        allRoutes: [
+          {
+            id: 1,
+            name: 'Frontend Developer',
+            category: 'Frontend',
+            difficulty: 'Principiante',
+            duration: '6 meses',
+            durationMonths: 6,
+            rating: 4.9,
+            students: 1234,
+            description: 'Conviértete en un desarrollador frontend completo con HTML, CSS, JavaScript y React.',
+            courses: ['HTML/CSS Básico', 'JavaScript Fundamentals', 'React Básico', 'React Avanzado', 'Proyectos Frontend'],
+            createdAt: new Date('2024-01-15')
+          },
+          {
+            id: 2,
+            name: 'Backend Developer',
+            category: 'Backend',
+            difficulty: 'Intermedio',
+            duration: '8 meses',
+            durationMonths: 8,
+            rating: 4.8,
+            students: 987,
+            description: 'Domina el desarrollo backend con Node.js, bases de datos y APIs REST.',
+            courses: ['Node.js Básico', 'Express.js', 'MongoDB', 'APIs REST', 'Autenticación', 'Deployment'],
+            createdAt: new Date('2024-01-10')
+          },
+          {
+            id: 3,
+            name: 'Full Stack Developer',
+            category: 'Full Stack',
+            difficulty: 'Avanzado',
+            duration: '12 meses',
+            durationMonths: 12,
+            rating: 4.9,
+            students: 756,
+            description: 'Conviértete en un desarrollador completo dominando frontend y backend.',
+            courses: ['HTML/CSS', 'JavaScript', 'React', 'Node.js', 'Bases de Datos', 'DevOps', 'Proyectos Reales'],
+            createdAt: new Date('2024-01-05')
+          },
+          {
+            id: 4,
+            name: 'Data Science',
+            category: 'Data Science',
+            difficulty: 'Intermedio',
+            duration: '10 meses',
+            durationMonths: 10,
+            rating: 4.7,
+            students: 543,
+            description: 'Aprende análisis de datos, machine learning y visualización con Python.',
+            courses: ['Python Básico', 'Pandas & NumPy', 'Matplotlib', 'Machine Learning', 'Deep Learning'],
+            createdAt: new Date('2024-01-20')
+          },
+          {
+            id: 5,
+            name: 'Mobile Developer',
+            category: 'Mobile',
+            difficulty: 'Intermedio',
+            duration: '7 meses',
+            durationMonths: 7,
+            rating: 4.6,
+            students: 432,
+            description: 'Desarrolla aplicaciones móviles nativas e híbridas para iOS y Android.',
+            courses: ['React Native', 'Flutter', 'iOS Development', 'Android Development', 'App Store'],
+            createdAt: new Date('2024-01-12')
+          },
+          {
+            id: 6,
+            name: 'DevOps Engineer',
+            category: 'DevOps',
+            difficulty: 'Avanzado',
+            duration: '9 meses',
+            durationMonths: 9,
+            rating: 4.8,
+            students: 321,
+            description: 'Automatiza despliegues y gestiona infraestructura con herramientas modernas.',
+            courses: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform', 'Monitoring'],
+            createdAt: new Date('2024-01-08')
+          }
+        ],
+        filteredRoutes: [],
+        categories: [
+          { id: 'all', name: 'Todas' },
+          { id: 'Frontend', name: 'Frontend' },
+          { id: 'Backend', name: 'Backend' },
+          { id: 'Full Stack', name: 'Full Stack' },
+          { id: 'Data Science', name: 'Data Science' },
+          { id: 'Mobile', name: 'Mobile' },
+          { id: 'DevOps', name: 'DevOps' }
+        ],
+        wishlist: JSON.parse(localStorage.getItem('routeWishlist') || '[]'),
+        enrolledRoutes: JSON.parse(localStorage.getItem('enrolledRoutes') || '[]'),
+        routeProgress: JSON.parse(localStorage.getItem('routeProgress') || '{}'),
+        
+        init() {
+          this.filteredRoutes = [...this.allRoutes];
+          this.sortRoutes();
+        },
+        
+        filterRoutes() {
+          let filtered = [...this.allRoutes];
+          
+          // Filter by search query
+          if (this.searchQuery) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(route => 
+              route.name.toLowerCase().includes(query) ||
+              route.description.toLowerCase().includes(query) ||
+              route.category.toLowerCase().includes(query) ||
+              route.courses.some(course => course.toLowerCase().includes(query))
+            );
+          }
+          
+          // Filter by category
+          if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(route => route.category === this.activeCategory);
+          }
+          
+          // Filter by difficulty
+          if (this.difficultyFilter) {
+            const difficultyMap = {
+              'beginner': 'Principiante',
+              'intermediate': 'Intermedio',
+              'advanced': 'Avanzado'
+            };
+            filtered = filtered.filter(route => route.difficulty === difficultyMap[this.difficultyFilter]);
+          }
+          
+          // Filter by duration
+          if (this.durationFilter) {
+            filtered = filtered.filter(route => {
+              const months = route.durationMonths;
+              switch(this.durationFilter) {
+                case 'short': return months <= 3;
+                case 'medium': return months > 3 && months <= 6;
+                case 'long': return months > 6;
+                default: return true;
+              }
+            });
+          }
+          
+          this.filteredRoutes = filtered;
+          this.sortRoutes();
+        },
+        
+        setActiveCategory(categoryId) {
+          this.activeCategory = categoryId;
+          this.filterRoutes();
+        },
+        
+        sortRoutes() {
+          switch(this.sortBy) {
+            case 'popular':
+              this.filteredRoutes.sort((a, b) => b.students - a.students);
+              break;
+            case 'rating':
+              this.filteredRoutes.sort((a, b) => b.rating - a.rating);
+              break;
+            case 'duration-short':
+              this.filteredRoutes.sort((a, b) => a.durationMonths - b.durationMonths);
+              break;
+            case 'duration-long':
+              this.filteredRoutes.sort((a, b) => b.durationMonths - a.durationMonths);
+              break;
+            case 'newest':
+            default:
+              this.filteredRoutes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+              break;
+          }
+        },
+        
+        clearFilters() {
+          this.searchQuery = '';
+          this.activeCategory = 'all';
+          this.difficultyFilter = '';
+          this.durationFilter = '';
+          this.sortBy = 'newest';
+          this.filterRoutes();
+        },
+        
+        toggleWishlist(routeId) {
+          const index = this.wishlist.indexOf(routeId);
+          if (index > -1) {
+            this.wishlist.splice(index, 1);
+          } else {
+            this.wishlist.push(routeId);
+          }
+          localStorage.setItem('routeWishlist', JSON.stringify(this.wishlist));
+        },
+        
+        isInWishlist(routeId) {
+          return this.wishlist.includes(routeId);
+        },
+        
+        startRoute(routeId) {
+          if (!this.enrolledRoutes.includes(routeId)) {
+            this.enrolledRoutes.push(routeId);
+            localStorage.setItem('enrolledRoutes', JSON.stringify(this.enrolledRoutes));
+            
+            // Initialize progress
+            if (!this.routeProgress[routeId]) {
+              this.routeProgress[routeId] = 0;
+              localStorage.setItem('routeProgress', JSON.stringify(this.routeProgress));
+            }
+            
+            if (typeof showNotification === 'function') {
+              showNotification('¡Te has inscrito en la ruta exitosamente!', 'success');
+            } else {
+              alert('¡Te has inscrito en la ruta exitosamente!');
+            }
+          } else {
+            window.showNotification('Continuando con tu ruta...', 'info');
+          }
+        },
+        
+        isRouteStarted(routeId) {
+          return this.enrolledRoutes.includes(routeId);
+        },
+        
+        getRouteProgress(routeId) {
+          return this.routeProgress[routeId] || 0;
+        },
+        
+        viewRoute(routeId) {
+          const route = this.allRoutes.find(r => r.id === routeId);
+          if (route) {
+            alert(`Ruta: ${route.name}\n\nDescripción: ${route.description}\n\nCursos incluidos:\n${route.courses.map((course, index) => `${index + 1}. ${course}`).join('\n')}`);
+          }
+        },
+        
+        getRouteGradient(category) {
+          const gradients = {
+            'Frontend': 'bg-gradient-to-r from-blue-500 to-purple-600',
+            'Backend': 'bg-gradient-to-r from-green-500 to-teal-600',
+            'Full Stack': 'bg-gradient-to-r from-purple-500 to-pink-600',
+            'Data Science': 'bg-gradient-to-r from-orange-500 to-red-600',
+            'Mobile': 'bg-gradient-to-r from-indigo-500 to-blue-600',
+            'DevOps': 'bg-gradient-to-r from-gray-600 to-gray-800'
+          };
+          return gradients[category] || 'bg-gradient-to-r from-gray-500 to-gray-700';
+        },
+        
+        getCategoryColor(category) {
+          const colors = {
+            'Frontend': 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+            'Backend': 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200',
+            'Full Stack': 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200',
+            'Data Science': 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
+            'Mobile': 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200',
+            'DevOps': 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200'
+          };
+          return colors[category] || 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200';
+        },
+        
+        getDifficultyColor(difficulty) {
+          const colors = {
+            'Principiante': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+            'Intermedio': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+            'Avanzado': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+          };
+          return colors[difficulty] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        },
+        
+        getRouteIcon(category) {
+          const icons = {
+            'Frontend': '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path></svg>',
+            'Backend': '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path></svg>',
+            'Full Stack': '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>',
+            'Data Science': '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2.5 2.5A1.5 1.5 0 007 6h2a1.5 1.5 0 00.5 1.5v3A1.5 1.5 0 009 12H7a1.5 1.5 0 00-.5-1.5v-3z" clip-rule="evenodd"></path></svg>',
+            'Mobile': '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zM8 4h4v10H8V4z" clip-rule="evenodd"></path></svg>',
+            'DevOps': '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>'
+          };
+          return icons[category] || icons['Frontend'];
+        }
+      }
+    }
+  </script>
+   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
