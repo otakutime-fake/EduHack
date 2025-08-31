@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos | EduHack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#16a34a',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-[#13161c] font-sans">
+
+  <!-- Navbar superior -->
+  <header class="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 z-10">
+    <h1 class="text-lg font-bold text-green-600 dark:text-green-400">EduHack</h1>
+    <nav class="flex gap-6">
+      <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">Inicio</a>
+      <a href="cursos.html" class="text-green-600 dark:text-green-400 font-semibold">Cursos</a>
+      <a href="rutas.html" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">Rutas</a>
+    </nav>
+    <button id="toggleDark" class="ml-4 px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs border border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+      Modo oscuro
+    </button>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="fixed top-14 left-0 w-52 h-full bg-white dark:bg-gray-800 shadow-md p-4 space-y-4">
+    <a href="../index.html" class="block text-gray-700 dark:text-gray-200 font-semibold hover:text-green-600 dark:hover:text-green-400">🏠 Inicio</a>
+    <a href="cursos.html" class="block text-gray-700 dark:text-gray-200 font-semibold hover:text-green-600 dark:hover:text-green-400">📚 Cursos</a>
+    <a href="rutas.html" class="block text-gray-700 dark:text-gray-200 font-semibold hover:text-green-600 dark:hover:text-green-400">🛤️ Rutas</a>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="ml-56 mt-16 p-6">
+    <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Cursos disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Curso Programación Básica -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition relative">
+        <span class="absolute top-4 right-4 bg-blue-600 dark:bg-blue-700 text-white text-xs px-2 py-1 rounded-full font-bold">Con Video</span>
+        <div class="w-full h-40 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+          <span class="text-white text-3xl font-bold">C++</span>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">Programación Básica</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Fundamentos de programación en C++. Aprende desde variables hasta estructuras de control.</p>
+          <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
+            <span>⏱️ 8 clases</span>
+            <span class="mx-2">•</span>
+            <span>📹 Video HD</span>
+          </div>
+          <a href="video.html" class="bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-800 inline-block transition">Ver curso</a>
+        </div>
+      </div>
+      
+      <!-- Curso Illustrator -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition relative">
+        <span class="absolute top-4 right-4 bg-green-600 dark:bg-green-700 text-white text-xs px-2 py-1 rounded-full font-bold">Nuevo</span>
+        <img src="../icons/illustrator 2011.svg" alt="Illustrator 2011" class="w-full h-40 object-cover bg-gray-100 dark:bg-gray-700">
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-green-600 dark:text-green-400">Illustrator 2011</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Dibujo vectorial rápido y potente. Aprende desde cero con técnicas de color, volumen y efectos 3D.</p>
+          <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
+            <span>⏱️ 5 clases</span>
+            <span class="mx-2">•</span>
+            <span>📹 Video incluido</span>
+          </div>
+          <a href="illustrator-2011.html" class="bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-800 inline-block transition">Ver curso</a>
+        </div>
+      </div>
+      
+      <!-- Curso Visual Studio -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition relative">
+        <span class="absolute top-4 right-4 bg-purple-600 dark:bg-purple-700 text-white text-xs px-2 py-1 rounded-full font-bold">Herramientas</span>
+        <div class="w-full h-40 bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
+          <span class="text-white text-2xl font-bold">VS</span>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400">Visual Studio Setup</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Configura tu entorno de desarrollo y compila tus primeros programas en C++.</p>
+          <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
+            <span>⏱️ 3 clases</span>
+            <span class="mx-2">•</span>
+            <span>🛠️ Configuración</span>
+          </div>
+          <button class="bg-purple-600 dark:bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition opacity-50 cursor-not-allowed">Próximamente</button>
+        </div>
+      </div>
+      
+      <!-- Curso C++ Avanzado -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition relative">
+        <span class="absolute top-4 right-4 bg-red-600 dark:bg-red-700 text-white text-xs px-2 py-1 rounded-full font-bold">Avanzado</span>
+        <div class="w-full h-40 bg-gradient-to-r from-red-500 to-orange-600 flex items-center justify-center">
+          <span class="text-white text-2xl font-bold">C++</span>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-red-600 dark:text-red-400">C++ Avanzado</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Domina programación orientada a objetos, memoria dinámica y buenas prácticas.</p>
+          <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
+            <span>⏱️ 12 clases</span>
+            <span class="mx-2">•</span>
+            <span>🎯 Proyectos</span>
+          </div>
+          <button class="bg-red-600 dark:bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-700 dark:hover:bg-red-800 transition opacity-50 cursor-not-allowed">Próximamente</button>
+        </div>
+      </div>
+      
+      <!-- Curso Web Development -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition relative">
+        <span class="absolute top-4 right-4 bg-yellow-600 dark:bg-yellow-700 text-white text-xs px-2 py-1 rounded-full font-bold">Web</span>
+        <div class="w-full h-40 bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center">
+          <span class="text-white text-2xl font-bold">HTML</span>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-yellow-600 dark:text-yellow-400">Desarrollo Web</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Aprende HTML, CSS y JavaScript para crear sitios web modernos y responsivos.</p>
+          <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
+            <span>⏱️ 15 clases</span>
+            <span class="mx-2">•</span>
+            <span>🌐 Proyectos web</span>
+          </div>
+          <button class="bg-yellow-600 dark:bg-yellow-700 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 dark:hover:bg-yellow-800 transition opacity-50 cursor-not-allowed">Próximamente</button>
+        </div>
+      </div>
+      
+      <!-- Más cursos -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition border-2 border-dashed border-gray-300 dark:border-gray-600">
+        <div class="text-center py-16">
+          <div class="text-4xl mb-4">🚀</div>
+          <h3 class="text-lg font-bold text-gray-600 dark:text-gray-400 mb-2">Más cursos próximamente</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-500 mb-4">Estamos preparando más contenido educativo para ti.</p>
+          <button class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">Notificarme</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('toggleDark').onclick = function () {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+</body>
+</html>

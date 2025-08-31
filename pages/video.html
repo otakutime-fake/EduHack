@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 1 - Curso de C++ | EduHack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Estilos base de Video.js -->
+  <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+  
+  <!-- Plugin de botones adicionales -->
+  <link href="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#16a34a',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .video-js {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+      margin: 0 auto;
+    }
+      background: #181818;
+      border-radius: 8px;
+      padding: 10px 0;
+      box-shadow: 0 1px 4px #0002;
+      flex-wrap: wrap;
+    }
+    .controls button, .controls select {
+      background: #444;
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .controls button:hover, .controls select:hover {
+      background: #16a34a;
+      color: #fff;
+    }
+    .controls input[type="range"] {
+      width: 100px;
+      accent-color: #16a34a;
+      margin: 0 8px;
+    }
+    .controls label {
+      font-size: 0.95rem;
+      color: #bbb;
+      margin-right: 4px;
+    }
+    .controls .time {
+      font-size: 0.95rem;
+      color: #bbb;
+      min-width: 70px;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .video-container, .controls {
+        max-width: 100%;
+      }
+      video {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-[#13161c] font-sans">
+
+  <!-- Navbar superior -->
+  <header class="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 z-10">
+    <h1 class="text-lg font-bold text-green-600 dark:text-green-400">EduHack</h1>
+    <input type="text" placeholder="Buscar cursos..."
+      class="border rounded px-3 py-1 text-sm w-1/3 focus:outline-none focus:ring focus:ring-green-300 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+    <nav class="flex gap-6">
+      <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">Inicio</a>
+      <a href="cursos.html" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">Cursos</a>
+      <a href="rutas.html" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">Rutas</a>
+    </nav>
+    <button id="toggleDark" class="ml-4 px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs border border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+      Modo oscuro
+    </button>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="fixed top-14 left-0 w-52 h-full bg-white dark:bg-gray-800 shadow-md p-4 space-y-4">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Clases del curso</h3>
+      <ol class="space-y-4 text-gray-700 dark:text-gray-300">
+        <a href="video.html">
+          <li class="flex items-center gap-3">
+            <span class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white text-base font-bold">1</span>
+            <img src="icons/illustrator 2011.svg" alt="" width="32" height="32" class="rounded">
+            <div>
+              <p class="font-semibold">Presentación y objetivos del curso Illustrator</p>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Duración: 8 min</span>
+            </div>
+          </li>
+        </a>
+        <li class="flex items-center gap-3">
+          <span class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white text-base font-bold">2</span>
+          <img src="icons/illustrator 2011.svg" alt="" width="32" height="32" class="rounded">
+          <div>
+            <p class="font-semibold">Herramientas básicas y entorno</p>
+            <span class="text-xs text-gray-500 dark:text-gray-400">Duración: 12 min</span>
+          </div>
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white text-base font-bold">3</span>
+          <img src="icons/illustrator 2011.svg" alt="" width="32" height="32" class="rounded">
+          <div>
+            <p class="font-semibold">Creación de formas y colores</p>
+            <span class="text-xs text-gray-500 dark:text-gray-400">Duración: 15 min</span>
+          </div>
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white text-base font-bold">4</span>
+          <img src="icons/illustrator 2011.svg" alt="" width="32" height="32" class="rounded">
+          <div>
+            <p class="font-semibold">Efectos, sombras y volumen</p>
+            <span class="text-xs text-gray-500 dark:text-gray-400">Duración: 18 min</span>
+          </div>
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white text-base font-bold">5</span>
+          <img src="icons/illustrator 2011.svg" alt="" width="32" height="32" class="rounded">
+          <div>
+            <p class="font-semibold">Proyecto final: Ilustración avanzada</p>
+            <span class="text-xs text-gray-500 dark:text-gray-400">Duración: 22 min</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="ml-56 mt-16 p-6 flex flex-col items-center">
+    <div class="bg-gray-900 rounded-lg p-6 mb-6 w-full max-w-4xl">
+      <!-- Reproductor Video.js -->
+      <video
+        id="mi-video"
+        class="video-js vjs-big-play-centered"
+        controls
+        preload="auto"
+        width="900"
+        height="506"
+        poster="../icons/illustrator 2011.svg"
+        data-setup="{}"
+      >
+        <source src="../cursos/curso illustrator 2011/video 1.mp4" type="video/mp4" />
+        <track kind="captions" src="https://vjs.zencdn.net/v/oceans.vtt" srclang="es" label="Español" default>
+        Tu navegador no soporta la reproducción de videos.
+      </video>
+    </div>
+    <div class="bg-[#2a2a2a] dark:bg-[#23272f] rounded-lg p-6 mb-6 w-full max-w-full">
+      <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">Clase 1: Introducción y Configuración</h2>
+      <span class="inline-block text-xs text-gray-400 mb-2">Duración: 8 min</span>
+      <h3 class="text-lg font-semibold text-gray-200 dark:text-gray-100 mb-2">Resumen de la clase</h3>
+      <p class="text-gray-300 dark:text-gray-400">
+        En esta clase aprenderás cómo configurar tu entorno de desarrollo en Visual Studio y escribir tu primer programa en C++.
+      </p>
+    </div>
+  </main>
+
+  <!-- Librerías Video.js -->
+  <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+  <script src="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.min.js"></script>
+
+  <script>
+    // Modo oscuro
+    document.getElementById('toggleDark').onclick = function () {
+      document.documentElement.classList.toggle('dark');
+    };
+
+    // Inicializar Video.js
+    const player = videojs('mi-video', {
+      playbackRates: [0.5, 1, 1.5, 2], // Velocidades
+      controlBar: {
+        volumePanel: { inline: false }
+      }
+    });
+
+    // Botones de retroceder y adelantar
+    player.seekButtons({
+      forward: 15,
+      back: 15
+    });
+  </script>
+</body>
+</html>
