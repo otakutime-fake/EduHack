@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduHack - Hackea tu futuro con cursos innovadores</title>
+  <meta name="description" content="Descubre la plataforma educativa más completa del mundo. Cursos de programación, diseño, marketing, negocios y mucho más.">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#16a34a',
+            'secondary': '#3b82f6',
+            'accent': '#f59e0b'
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px #3b82f6; }
+      to { box-shadow: 0 0 30px #3b82f6, 0 0 40px #3b82f6; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 overflow-x-hidden" x-data="appData()">
+
+  <!-- Navegación EduHack 2025 -->
+  <header class="eduhack-navbar bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+    <div class="flex items-center">
+      <a href="index.html" class="eduhack-logo text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        EduHack
+      </a>
+      <span class="eduhack-tagline text-gray-400 ml-2">Hackea tu futuro</span>
+    </div>
+    <nav class="nav">
+      <a href="index.html" class="nav-link active">Inicio</a>
+      <a href="pages/cursos.html" class="nav-link">Cursos</a>
+      <a href="pages/rutas.html" class="nav-link">Rutas</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section 2 -->
+  <main class="min-h-screen">
+    <section class="relative py-20 overflow-hidden">
+      <!-- Fondo animado -->
+      <div class="absolute inset-0 bg-gradient-to-br  via-purple-900 to-pink-900"></div>
+      <div class="absolute inset-0 bg-black/20"></div>
+      
+      <!-- Elementos decorativos -->
+      <div class="absolute top-20 left-10 w-32 h-32 bg-blue-500/20 rounded-full blur-xl animate-float"></div>
+      <div class="absolute bottom-20 right-10 w-40 h-40 bg-purple-500/20 rounded-full blur-xl animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/2 left-1/2 w-24 h-24 bg-yellow-500/20 rounded-full blur-xl animate-float" style="animation-delay: 4s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-6xl mx-auto">
+          <!-- Badge 2025 -->
+          <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-bold rounded-full mb-8 animate-glow">
+            <span class="text-2xl mr-2">🚀</span>
+            <span>NUEVO</span>
+          </div>
+          
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent leading-tight">
+            Hackea tu futuro con
+            <span class="block text-yellow-400">EduHack</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            La plataforma educativa más innovadora mundo. Descubre cursos de última generación en 
+            <span class="text-blue-400 font-semibold">programación</span>, 
+            <span class="text-purple-400 font-semibold">diseño</span>, 
+            <span class="text-green-400 font-semibold">marketing digital</span>, 
+            <span class="text-yellow-400 font-semibold">inteligencia artificial</span>, 
+            <span class="text-pink-400 font-semibold">blockchain</span> y mucho más.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+            <a href="pages/cursos.html" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg">
+              <span class="mr-2">🎓</span> Explorar cursos
+            </a>
+            <a href="pages/rutas.html" class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 text-lg">
+              <span class="mr-2">🛤️</span> Ver rutas de aprendizaje
+            </a>
+          </div>
+          
+          <!-- Estadísticas 2025 -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">50K+</div>
+              <div class="text-gray-400">Estudiantes activos</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-2">200+</div>
+              <div class="text-gray-400">Cursos disponibles</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-yellow-400 mb-2">4.9</div>
+              <div class="text-gray-400">Rating promedio</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-green-400 mb-2">24/7</div>
+              <div class="text-gray-400">Soporte disponible</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorías de cursos 2025 -->
+    <section class="py-20 bg-gray-800">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+            Explora nuestras <span class="text-gradient bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">categorías</span>
+          </h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+            Desde tecnología de vanguardia hasta habilidades creativas, tenemos todo lo que necesitas para destacar
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Programación & Desarrollo -->
+          <div class="group bg-gradient-to-br from-blue-900 to-blue-700 p-8 rounded-2xl hover:from-blue-800 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+            <div class="text-4xl mb-4">💻</div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Programación & Desarrollo</h3>
+            <p class="text-blue-200 mb-6">JavaScript, Python, React, Node.js, AI/ML, Blockchain y las tecnologías más demandadas</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">JavaScript</span>
+              <span class="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">Python</span>
+              <span class="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">AI/ML</span>
+            </div>
+            <a href="pages/cursos.html" class="text-blue-300 hover:text-blue-200 font-semibold">Ver cursos →</a>
+          </div>
+          
+          <!-- Diseño & Creatividad -->
+          <div class="group bg-gradient-to-br from-purple-900 to-purple-700 p-8 rounded-2xl hover:from-purple-800 hover:to-purple-600 transition-all duration-300 transform hover:scale-105">
+            <div class="text-4xl mb-4">🎨</div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Diseño & Creatividad</h3>
+            <p class="text-purple-200 mb-6">UI/UX, Illustrator, Photoshop, Figma, diseño 3D y las herramientas creativas más innovadoras</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-purple-600 text-white text-sm rounded-full">UI/UX</span>
+              <span class="px-3 py-1 bg-purple-600 text-white text-sm rounded-full">Illustrator</span>
+              <span class="px-3 py-1 bg-purple-600 text-white text-sm rounded-full">Figma</span>
+            </div>
+            <a href="pages/cursos.html" class="text-purple-300 hover:text-purple-200 font-semibold">Ver cursos →</a>
+          </div>
+          
+          <!-- Marketing Digital -->
+          <div class="group bg-gradient-to-br from-green-900 to-green-700 p-8 rounded-2xl hover:from-green-800 hover:to-green-600 transition-all duration-300 transform hover:scale-105">
+            <div class="text-4xl mb-4">📈</div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Marketing Digital</h3>
+            <p class="text-green-200 mb-6">SEO, SEM, Social Media, Analytics, Growth Hacking y estrategias digitales avanzadas</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-green-600 text-white text-sm rounded-full">SEO</span>
+              <span class="px-3 py-1 bg-green-600 text-white text-sm rounded-full">Analytics</span>
+              <span class="px-3 py-1 bg-green-600 text-white text-sm rounded-full">Growth</span>
+            </div>
+            <a href="pages/cursos.html" class="text-green-300 hover:text-green-200 font-semibold">Ver cursos →</a>
+          </div>
+          
+          <!-- Negocios & Emprendimiento -->
+          <div class="group bg-gradient-to-br from-yellow-900 to-yellow-700 p-8 rounded-2xl hover:from-yellow-800 hover:to-yellow-600 transition-all duration-300 transform hover:scale-105">
+            <div class="text-4xl mb-4">💼</div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Negocios & Emprendimiento</h3>
+            <p class="text-yellow-200 mb-6">Startups, finanzas, liderazgo, gestión de proyectos y habilidades empresariales del futuro</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-yellow-600 text-white text-sm rounded-full">Startups</span>
+              <span class="px-3 py-1 bg-yellow-600 text-white text-sm rounded-full">Finanzas</span>
+              <span class="px-3 py-1 bg-yellow-600 text-white text-sm rounded-full">Liderazgo</span>
+            </div>
+            <a href="pages/cursos.html" class="text-yellow-300 hover:text-yellow-200 font-semibold">Ver cursos →</a>
+          </div>
+          
+          <!-- Ciencia de Datos -->
+          <div class="group bg-gradient-to-br from-pink-900 to-pink-700 p-8 rounded-2xl hover:from-pink-800 hover:to-pink-600 transition-all duration-300 transform hover:scale-105">
+            <div class="text-4xl mb-4">📊</div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Ciencia de Datos</h3>
+            <p class="text-pink-200 mb-6">Big Data, Machine Learning, estadística, visualización y análisis predictivo avanzado</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-pink-600 text-white text-sm rounded-full">Big Data</span>
+              <span class="px-3 py-1 bg-pink-600 text-white text-sm rounded-full">ML</span>
+              <span class="px-3 py-1 bg-pink-600 text-white text-sm rounded-full">Analytics</span>
+            </div>
+            <a href="pages/cursos.html" class="text-pink-300 hover:text-pink-200 font-semibold">Ver cursos →</a>
+          </div>
+          
+          <!-- Idiomas & Comunicación -->
+          <div class="group bg-gradient-to-br from-indigo-900 to-indigo-700 p-8 rounded-2xl hover:from-indigo-800 hover:to-indigo-600 transition-all duration-300 transform hover:scale-105">
+            <div class="text-4xl mb-4">🌍</div>
+            <h3 class="text-2xl font-bold mb-4 text-white">Idiomas & Comunicación</h3>
+            <p class="text-indigo-200 mb-6">Inglés, francés, alemán, comunicación efectiva y habilidades interpersonales globales</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-indigo-600 text-white text-sm rounded-full">Inglés</span>
+              <span class="px-3 py-1 bg-indigo-600 text-white text-sm rounded-full">Francés</span>
+              <span class="px-3 py-1 bg-indigo-600 text-white text-sm rounded-full">Oratoria</span>
+            </div>
+            <a href="pages/cursos.html" class="text-indigo-300 hover:text-indigo-200 font-semibold">Ver cursos →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nuevos cursos 2025 -->
+    <section class="py-20 bg-gray-900">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold rounded-full mb-6">
+            <span class="mr-2">✨</span> RECIÉN LANZADOS
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+            Nuevos cursos <span class="text-gradient bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent"></span>
+          </h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+            Mantente al día con las últimas tendencias y tecnologías. Estos cursos acaban de llegar a nuestra plataforma.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Curso 1: IA Generativa -->
+          <div class="bg-gray-800 rounded-2xl overflow-hidden hover:bg-gray-750 transition-all duration-300 transform hover:scale-105 group">
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 h-48 flex items-center justify-center">
+              <span class="text-6xl">🤖</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 bg-purple-600 text-white text-xs rounded-full">NUEVO</span>
+                <span class="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded-full">IA</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">IA Generativa con ChatGPT y Claude</h3>
+              <p class="text-gray-400 mb-4 text-sm">Domina las herramientas de IA más avanzadas y revoluciona tu productividad.</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>⏱️ 8 horas</span>
+                <span>👥 1.2K estudiantes</span>
+                <span>⭐ 4.9</span>
+              </div>
+              <a href="cursos/curso illustrator 2011/illustrator 2011.html" class="text-purple-400 hover:text-purple-300 font-semibold">Comenzar curso →</a>
+            </div>
+          </div>
+          
+          <!-- Curso 2: Blockchain Development -->
+          <div class="bg-gray-800 rounded-2xl overflow-hidden hover:bg-gray-750 transition-all duration-300 transform hover:scale-105 group">
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 h-48 flex items-center justify-center">
+              <span class="text-6xl">⛓️</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 bg-blue-600 text-white text-xs rounded-full">NUEVO</span>
+                <span class="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded-full">Blockchain</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">Desarrollo Blockchain y Web3</h3>
+              <p class="text-gray-400 mb-4 text-sm">Construye aplicaciones descentralizadas y contratos inteligentes desde cero.</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>⏱️ 12 horas</span>
+                <span>👥 890 estudiantes</span>
+                <span>⭐ 4.8</span>
+              </div>
+              <a href="cursos/curso illustrator 2011/illustrator 2011.html" class="text-blue-400 hover:text-blue-300 font-semibold">Comenzar curso →</a>
+            </div>
+          </div>
+          
+          <!-- Curso 3: Adobe Illustrator 2011 -->
+          <div class="bg-gray-800 rounded-2xl overflow-hidden hover:bg-gray-750 transition-all duration-300 transform hover:scale-105 group">
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 h-48 flex items-center justify-center">
+              <span class="text-6xl">🎨</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full">POPULAR</span>
+                <span class="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded-full">Diseño</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white group-hover:text-orange-400 transition-colors">Adobe Illustrator 2011</h3>
+              <p class="text-gray-400 mb-4 text-sm">Domina el diseño vectorial con técnicas profesionales y proyectos prácticos.</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>⏱️ 2.5 horas</span>
+                <span>👥 856 estudiantes</span>
+                <span>⭐ 4.8</span>
+              </div>
+              <a href="cursos/curso illustrator 2011/illustrator 2011.html" class="text-orange-400 hover:text-orange-300 font-semibold">Comenzar curso →</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="pages/cursos.html" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+            <span class="mr-2">🚀</span> Ver todos los cursos nuevos
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rutas de aprendizaje 2025 -->
+    <section class="py-20 bg-gray-800">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+            Rutas de aprendizaje <span class="text-gradient bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">estructuradas</span>
+          </h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+            Sigue un camino claro hacia tu objetivo profesional con nuestras rutas de aprendizaje diseñadas por expertos
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Ruta Full Stack Developer -->
+          <div class="bg-gradient-to-br from-blue-900 to-purple-900 p-8 rounded-2xl border border-blue-500/20">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center text-2xl">💻</div>
+              <div>
+                <h3 class="text-2xl font-bold text-white">Full Stack Developer</h3>
+                <p class="text-blue-200">De principiante a desarrollador completo</p>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-6">Conviértete en un desarrollador full stack dominando las tecnologías más demandadas: React, Node.js, bases de datos y deployment en la nube.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-blue-600/30 text-blue-200 text-sm rounded-full">JavaScript</span>
+              <span class="px-3 py-1 bg-blue-600/30 text-blue-200 text-sm rounded-full">React</span>
+              <span class="px-3 py-1 bg-blue-600/30 text-blue-200 text-sm rounded-full">Node.js</span>
+              <span class="px-3 py-1 bg-blue-600/30 text-blue-200 text-sm rounded-full">MongoDB</span>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-400 mb-6">
+              <span>📚 12 cursos</span>
+              <span>⏱️ 80 horas</span>
+              <span>🎓 Certificado</span>
+            </div>
+            <a href="pages/rutas.html" class="inline-flex items-center text-blue-300 hover:text-blue-200 font-semibold">
+              Ver ruta completa <span class="ml-2">→</span>
+            </a>
+          </div>
+          
+          <!-- Ruta UX/UI Designer -->
+          <div class="bg-gradient-to-br from-purple-900 to-pink-900 p-8 rounded-2xl border border-purple-500/20">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-16 h-16 bg-purple-600 rounded-xl flex items-center justify-center text-2xl">🎨</div>
+              <div>
+                <h3 class="text-2xl font-bold text-white">UX/UI Designer</h3>
+                <p class="text-purple-200">Diseña experiencias digitales increíbles</p>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-6">Domina el diseño de experiencias de usuario y interfaces modernas con las herramientas y metodologías más actuales del mercado.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-purple-600/30 text-purple-200 text-sm rounded-full">Figma</span>
+              <span class="px-3 py-1 bg-purple-600/30 text-purple-200 text-sm rounded-full">Adobe XD</span>
+              <span class="px-3 py-1 bg-purple-600/30 text-purple-200 text-sm rounded-full">Prototyping</span>
+              <span class="px-3 py-1 bg-purple-600/30 text-purple-200 text-sm rounded-full">User Research</span>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-400 mb-6">
+              <span>📚 8 cursos</span>
+              <span>⏱️ 60 horas</span>
+              <span>🎓 Certificado</span>
+            </div>
+            <a href="pages/rutas.html" class="inline-flex items-center text-purple-300 hover:text-purple-200 font-semibold">
+              Ver ruta completa <span class="ml-2">→</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="pages/rutas.html" class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200">
+            <span class="mr-2">🛤️</span> Explorar todas las rutas
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Llamada a la acción final 2025 -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
+      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="max-w-4xl mx-auto">
+          <div class="inline-flex items-center px-6 py-3 bg-yellow-400 text-black font-bold rounded-full mb-8">
+            <span class="text-xl mr-2">🎯</span>
+            <span>ÚNETE A LA REVOLUCIÓN EDUCATIVA</span>
+          </div>
+          
+          <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+            ¿Listo para <span class="text-yellow-300">hackear</span> tu futuro?
+          </h2>
+          
+          <p class="text-xl md:text-2xl mb-12 text-white/90 max-w-2xl mx-auto leading-relaxed">
+            Únete a más de 50,000 estudiantes que ya están transformando sus carreras con EduHack. Tu viaje hacia el éxito profesional comienza aquí.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+            <a href="pages/cursos.html" class="inline-flex items-center px-8 py-4 bg-white text-purple-600 font-bold rounded-xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg">
+              <span class="mr-2">🚀</span> Comenzar ahora
+            </a>
+            <a href="pages/rutas.html" class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-purple-600 transform hover:scale-105 transition-all duration-200 text-lg">
+              <span class="mr-2">🛤️</span> Explorar rutas
+            </a>
+          </div>
+          
+          <!-- Testimonios destacados -->
+          <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+              <div class="text-2xl mb-2">⭐⭐⭐⭐⭐</div>
+              <p class="text-sm mb-3">"EduHack cambió mi carrera completamente. Los cursos son increíbles y muy actualizados."</p>
+              <p class="text-xs opacity-75">- María González, Desarrolladora Full Stack</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+              <div class="text-2xl mb-2">⭐⭐⭐⭐⭐</div>
+              <p class="text-sm mb-3">"La mejor plataforma para aprender diseño UX/UI. Contenido de primera calidad."</p>
+              <p class="text-xs opacity-75">- Carlos Ruiz, UX Designer</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white">
+              <div class="text-2xl mb-2">⭐⭐⭐⭐⭐</div>
+              <p class="text-sm mb-3">"Gracias a EduHack conseguí mi trabajo soñado en una startup tecnológica."</p>
+              <p class="text-xs opacity-75">- Ana López, Data Scientist</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 border-t border-gray-800 py-12">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <p class="text-gray-400 mb-4">Hackea tu futuro con la educación más innovadora</p>
+        <p class="text-gray-500 text-sm">© 2025 EduHack. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function appData() {
+      return {
+        // Funciones de la aplicación
+      }
+    }
+  </script>
+</body>
+</html>
